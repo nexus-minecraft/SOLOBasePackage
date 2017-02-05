@@ -1,5 +1,6 @@
 name: SOLOBasePackage
-version: "0.0.1"
+version: "0.1.2"
 api: [1.0.0]
 author: solo
 main: solo.solobasepackage.Main
+load: STARTUP
