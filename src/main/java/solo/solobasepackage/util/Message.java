@@ -99,13 +99,11 @@ public class Message {
 	
 	public static void normal(CommandSender sender, String message, int type){
 		if(type == TYPE_POPUP || type == TYPE_TIP){
-			raw(sender, NORMAL_POPUP_COLOR + message);
+			message = NORMAL_POPUP_COLOR + message;
 		}else{
-			raw(sender, (NORMAL_PREFIX.isEmpty()) ?
-					NORMAL_COLOR + message :
-					NORMAL_COLOR + NORMAL_PREFIX + " " + NORMAL_COLOR + message
-				);
+			message = (NORMAL_PREFIX.isEmpty()) ? NORMAL_COLOR + message : NORMAL_COLOR + NORMAL_PREFIX + " " + NORMAL_COLOR + message;
 		}
+		raw(sender, message, type);
 	}
 		
 	public static void alert(CommandSender sender, String message){
@@ -114,13 +112,11 @@ public class Message {
 	
 	public static void alert(CommandSender sender, String message, int type){
 		if(type == TYPE_POPUP || type == TYPE_TIP){
-			raw(sender, ALERT_POPUP_COLOR + message);
+			message = ALERT_POPUP_COLOR + message;
 		}else{
-			raw(sender, (ALERT_PREFIX.isEmpty()) ?
-					ALERT_COLOR + message :
-					ALERT_COLOR + ALERT_PREFIX + " " + ALERT_COLOR + message
-				);
+			message = (ALERT_PREFIX.isEmpty()) ? ALERT_COLOR + message : ALERT_COLOR + ALERT_PREFIX + " " + ALERT_COLOR + message;
 		}
+		raw(sender, message, type);
 	}
 	
 	public static void usage(CommandSender sender, String usage){
@@ -129,16 +125,11 @@ public class Message {
 	
 	public static void usage(CommandSender sender, String usage, int type){
 		if(type == TYPE_POPUP || type == TYPE_TIP){
-			raw(sender, (USAGE_POPUP_PREFIX.isEmpty()) ?
-					USAGE_POPUP_COLOR + usage :
-					USAGE_POPUP_COLOR + USAGE_POPUP_PREFIX + " " + USAGE_POPUP_COLOR + usage
-				);
+			usage = (USAGE_POPUP_PREFIX.isEmpty()) ? USAGE_POPUP_COLOR + usage : USAGE_POPUP_COLOR + USAGE_POPUP_PREFIX + " " + USAGE_POPUP_COLOR + usage;
 		}else{
-			raw(sender, (USAGE_PREFIX.isEmpty()) ?
-					USAGE_COLOR + usage :
-					USAGE_COLOR + USAGE_PREFIX + " " + USAGE_COLOR + usage
-				);
+			usage  = (USAGE_PREFIX.isEmpty()) ? USAGE_COLOR + usage : USAGE_COLOR + USAGE_PREFIX + " " + USAGE_COLOR + usage;
 		}
+		raw(sender, usage, type);
 	}
 	
 	public static void info(CommandSender sender, String title, ArrayList<String> information){

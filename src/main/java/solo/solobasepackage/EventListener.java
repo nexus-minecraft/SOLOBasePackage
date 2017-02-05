@@ -6,15 +6,22 @@ import java.util.Map;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
+import cn.nukkit.event.Listener;
+import cn.nukkit.event.player.PlayerCreationEvent;
 import cn.nukkit.event.player.PlayerMoveEvent;
 import cn.nukkit.event.player.PlayerQuitEvent;
 import cn.nukkit.level.Location;
 import cn.nukkit.level.Position;
 import solo.solobasepackage.event.player.PlayerFloorMoveEvent;
 
-public class EventListener{
+public class EventListener implements Listener{
 
 	private Map<String, Position> movePos = new HashMap<>();
+	
+	@EventHandler
+	public void onPlayerCreation(PlayerCreationEvent event){
+		event.setPlayerClass(SPlayer.class);
+	}
 	
 	@EventHandler
 	public void onMove(PlayerMoveEvent event){

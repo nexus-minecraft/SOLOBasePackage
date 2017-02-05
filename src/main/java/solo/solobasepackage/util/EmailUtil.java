@@ -129,7 +129,7 @@ class MailTask extends AsyncTask{
 	
 	@Override
 	public void onRun(){
-		String username = this.senderEmail.split("@")[0]; //이메일 주소중 @ naver.com앞주소만 기재합니다.
+		String username = this.senderEmail.split("@")[0]; //이메일 주소중 @gmail.com 앞 주소만 기재합니다.
 		String password = this.password; //이메일 비밀번호를 기재합니다.
 		String address = this.senderEmail.split("@")[1];
 		String host;
@@ -147,8 +147,8 @@ class MailTask extends AsyncTask{
 		}
 		 
 		// 메일 내용
-		//recipient = "solo_5@naver.com"; //메일을 발송할 이메일 주소를 기재해 줍니다.
-		//subject = "네이버를 사용한 발송 테스트입니다.";
+		//recipient = "solo_5@gmail.com"; //메일을 발송할 이메일 주소를 기재해 줍니다.
+		//subject = "발송 테스트입니다.";
 		//body = "내용 무";
 		 
 		Properties props = System.getProperties();

@@ -17,20 +17,13 @@ public class SPlayer extends Player{
 	public void sendAttributes() {
 		UpdateAttributesPacket pk = new UpdateAttributesPacket();
 		pk.entityId = 0;
-		int current = this.getExperience() - ExperienceUtil.getTotalRequireExp(this.getExperienceLevel() - 1);
-		int next =  ExperienceUtil.getRequireExp(this.getExperienceLevel());
-		double percent = current / (double) next;
-		if(percent > 100){
-			percent = 100;
-		}else if(percent < 0){
-			percent = 0;
-		}
+		System.out.println(ExperienceUtil.getCurrentPercent(this.getExperienceLevel(), this.getExperience()));
 		pk.entries = new Attribute[]{
 				Attribute.getAttribute(Attribute.MAX_HEALTH).setMaxValue(this.getMaxHealth()).setValue(health > 0 ? (health < getMaxHealth() ? health : getMaxHealth()) : 0),
 				Attribute.getAttribute(Attribute.MAX_HUNGER).setValue(this.getFoodData().getLevel()),
 				Attribute.getAttribute(Attribute.MOVEMENT_SPEED).setValue(this.getMovementSpeed()),
 				Attribute.getAttribute(Attribute.EXPERIENCE_LEVEL).setValue(this.getExperienceLevel()),
-				Attribute.getAttribute(Attribute.EXPERIENCE).setValue((float) percent)
+				Attribute.getAttribute(Attribute.EXPERIENCE).setValue((float) ExperienceUtil.getCurrentPercent(this.getExperienceLevel(), this.getExperience()))
 		};
 		this.dataPacket(pk);
 	}
@@ -55,17 +48,9 @@ public class SPlayer extends Player{
 	}
 	
 	@Override
-	public void sendExperience(int exp) {
+	public void sendExperience(int exp){
 		if(this.spawned){
-			int current = this.getExperience() - ExperienceUtil.getTotalRequireExp(this.getExperienceLevel() - 1);
-			int next =  ExperienceUtil.getRequireExp(this.getExperienceLevel());
-			double percent = current / (double) next;
-			if(percent > 100){
-				percent = 100;
-			}else if(percent < 0){
-				percent = 0;
-			}
-			this.setAttribute(Attribute.getAttribute(Attribute.EXPERIENCE).setValue((float) percent));
+			this.setAttribute(Attribute.getAttribute(Attribute.EXPERIENCE).setValue((float) ExperienceUtil.getCurrentPercent(this.getExperienceLevel(), this.getExperience())));
 		}
 	}
 }

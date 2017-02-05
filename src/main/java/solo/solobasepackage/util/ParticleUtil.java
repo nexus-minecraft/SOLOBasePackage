@@ -52,12 +52,12 @@ public class ParticleUtil{
 			put("portal", Particle.TYPE_PORTAL);
 		}});
 		
-		config.getAll().forEach((k, v) -> {
+		config.getAll().forEach((name, v) -> {
 			int id = (int) v;
 			if(! idToString.containsKey(id)){
-				idToString.put(id, k);
+				idToString.put(id, name);
 			}
-			stringToId.put(k, id);
+			stringToId.put(name, id);
 		});
 	}
 	

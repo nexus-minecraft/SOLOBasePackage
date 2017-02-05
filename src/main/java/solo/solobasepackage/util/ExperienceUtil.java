@@ -112,7 +112,7 @@ public class ExperienceUtil{
 			}
 			return lv;
 		}
-		return 0;
+		return getMaxLevel();
 	}
 	
 	public static int getMaxLevel(){
@@ -135,5 +135,20 @@ public class ExperienceUtil{
 			return getTotalRequireExp(level) - getTotalRequireExp(level - 1);
 		}
 		return Integer.MAX_VALUE - getTotalRequireExp(level);
+	}
+	
+	public static double getCurrentPercent(int level, int experience){
+		double next = getRequireExp(level + 1);
+		double current = experience - getTotalRequireExp(level - 1);
+		double percent = current / next;
+		if(percent > 100){
+			percent = 100;
+		}else if(percent < 0){
+			percent = 0;
+		}
+		//System.out.println("level : " + level);
+		//System.out.println("current exp : " + experience);
+		//System.out.println("percent : " + percent);
+		return percent;
 	}
 }
