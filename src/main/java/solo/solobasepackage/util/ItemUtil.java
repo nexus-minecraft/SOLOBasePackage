@@ -3,10 +3,16 @@ package solo.solobasepackage.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.nukkit.item.Item;
+
 public class ItemUtil {
 
 	private ItemUtil(){
 		
+	}
+	
+	public static String toString(Item item){
+		return toString(item.getId(), item.getDamage());
 	}
 	
 	public static String toString(String code){
@@ -270,7 +276,7 @@ public class ItemUtil {
 		put("127:0", "코코아 콩 (블럭)");
 		put("128:0", "사암 계단");
 		put("129:0", "에메랄드 원석");
-	
+		put("130:0", "엔더 상자");
 		put("131:0", "철사덫 갈고리");
 		put("132:0", "철사덫");
 		put("133:0", "에메랄드 블럭");

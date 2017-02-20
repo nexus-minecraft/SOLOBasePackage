@@ -3,6 +3,7 @@ package solo.solobasepackage.util;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
@@ -31,6 +32,8 @@ public class Message {
 	public static String INFORMATION_TITLE_FORMAT;
 	public static String PAGE_TITLE_FORMAT;
 	
+	public static String COMMAND_FULL_DESCRIPTION_FORMAT;
+	
 	private Message(){
 		
 	}
@@ -53,23 +56,27 @@ public class Message {
 			
 			put("informationTitleFormat", "§l======< §b{TITLE} §r§l>======");
 			put("pageTitleFormat", "§l======< {TITLE} §r§l(전체 {MAXPAGE}페이지 중 {PAGE}페이지) >======");
+			
+			put("commandFullDescriptionFormat", "§2§l{COMMAND} §r§7- {DESCRIPTION}");
 		}});
 		
-		NORMAL_PREFIX = config.getString("normalPrefix");
-		NORMAL_COLOR = config.getString("normalColor");
-		NORMAL_POPUP_COLOR = config.getString("normalPopupColor");
+		NORMAL_PREFIX = "§r" + config.getString("normalPrefix");
+		NORMAL_COLOR = "§r" + config.getString("normalColor");
+		NORMAL_POPUP_COLOR = "§r" + config.getString("normalPopupColor");
 		
-		ALERT_PREFIX = config.getString("alertPrefix");
-		ALERT_COLOR = config.getString("alertColor");
-		ALERT_POPUP_COLOR = config.getString("alertPopupColor");
+		ALERT_PREFIX = "§r" + config.getString("alertPrefix");
+		ALERT_COLOR = "§r" + config.getString("alertColor");
+		ALERT_POPUP_COLOR = "§r" + config.getString("alertPopupColor");
 		
-		USAGE_PREFIX = config.getString("usagePrefix");
-		USAGE_COLOR = config.getString("usageColor");
-		USAGE_POPUP_PREFIX = config.getString("usagePopupPrefix");
-		USAGE_POPUP_COLOR = config.getString("usagePopupColor");
+		USAGE_PREFIX = "§r" + config.getString("usagePrefix");
+		USAGE_COLOR = "§r" + config.getString("usageColor");
+		USAGE_POPUP_PREFIX = "§r" + config.getString("usagePopupPrefix");
+		USAGE_POPUP_COLOR = "§r" + config.getString("usagePopupColor");
 		
-		INFORMATION_TITLE_FORMAT = config.getString("informationTitleFormat");
-		PAGE_TITLE_FORMAT = config.getString("pageTitleFormat");
+		INFORMATION_TITLE_FORMAT = "§r" + config.getString("informationTitleFormat");
+		PAGE_TITLE_FORMAT = "§r" + config.getString("pageTitleFormat");
+		
+		COMMAND_FULL_DESCRIPTION_FORMAT = "§r" + config.getString("commandFullDescriptionFormat");
 	}
 	
 	public static void raw(CommandSender sender, String message){
@@ -203,5 +210,67 @@ public class Message {
 				break;
 			}
 		}
+	}
+	
+	
+	
+	public static void commandHelp(CommandSender sender, String title, LinkedHashMap<String, String> commandWithDescription){
+		commandHelp(sender, title, commandWithDescription, 1);
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static void commandHelp(CommandSender sender, String title, LinkedHashMap<String, String> commandWithDescription, int page){
+		Map.Entry[] entrys = new Map.Entry[commandWithDescription.size()];
+		int i = 0;
+		for(Map.Entry<String, String> entry : commandWithDescription.entrySet()){
+			entrys[i++] = entry;
+		}
+		commandHelp(sender, title, entrys, page);
+	}
+	
+	public static void commandHelp(CommandSender sender, String title, LinkedHashMap<String, String> commandWithDescription, String page){
+		int p = 1;
+		try{
+			p = Integer.parseInt(page);
+		}catch(Exception e){
+			
+		}
+		commandHelp(sender, title, commandWithDescription, p);
+	}
+	
+	public static void commandHelp(CommandSender sender, String title, ArrayList<Map.Entry<String, String>> commandWithDescription){
+		commandHelp(sender, title, commandWithDescription, 1);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void commandHelp(CommandSender sender, String title, ArrayList<Map.Entry<String, String>> commandWithDescription, String page){
+		commandHelp(sender, title, commandWithDescription.stream().toArray(Map.Entry[]::new), page);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void commandHelp(CommandSender sender, String title, ArrayList<Map.Entry<String, String>> commandWithDescription, int page){
+		commandHelp(sender, title, commandWithDescription.stream().toArray(Map.Entry[]::new), page);
+	}
+	
+	public static void commandHelp(CommandSender sender, String title, Map.Entry<String, String>[] commandWithDescription){
+		commandHelp(sender, title, commandWithDescription, 1);
+	}
+	
+	public static void commandHelp(CommandSender sender, String title, Map.Entry<String, String>[] commandWithDescription, String page){
+		int p = 1;
+		try{
+			p = Integer.parseInt(page);
+		}catch(Exception e){
+			
+		}
+		commandHelp(sender, title, commandWithDescription, p);
+	}
+	
+	public static void commandHelp(CommandSender sender, String title, Map.Entry<String, String>[] commandWithDescription, int page){
+		ArrayList<String> lines = new ArrayList<String>();
+		for(Map.Entry<String, String> entry : commandWithDescription){
+			lines.add(COMMAND_FULL_DESCRIPTION_FORMAT.replace("{COMMAND}", entry.getKey()).replace("{DESCRIPTION}", entry.getValue()));
+		}
+		page(sender, title, lines, page);
 	}
 }

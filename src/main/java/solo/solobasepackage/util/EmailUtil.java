@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,47 +62,7 @@ public class EmailUtil{
 		return err;
 	}
 	
-	public static String createCertificationCode(){
-		return createCertificationCode(2);
-	}
-	
-	public static String createCertificationCode(int level){
-		int length = 4;
-		char[] chars = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-		if(level < 2){
-			//NOTHING DO
-		}else if(level >= 2){
-			length = 6;
-			if(level >= 3){
-				chars = new char[]{
-						'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-						'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-						'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-						'U', 'V', 'W', 'X', 'Y', 'Z'
-						};
-				if(level >= 4){
-					length = 8;
-					if(level >= 5){
-						chars = new char[]{
-								'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-								'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-								'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-								'U', 'V', 'W', 'X', 'Y', 'Z',
-								'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-								'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-								'u', 'v', 'w', 'x', 'y', 'z'
-								};
-					}
-				}
-			}
-		}
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < length; i++){
-			sb.append(chars[new Random().nextInt(chars.length - 1)]);
-		}
-		return sb.toString();
-	}
-	
+	@SuppressWarnings("deprecation")
 	public static void sendEmail(String recipientEmail, String subject, String body){
 		Server.getInstance().getScheduler().scheduleAsyncTask(new MailTask(recipientEmail, subject, body));
 	}
