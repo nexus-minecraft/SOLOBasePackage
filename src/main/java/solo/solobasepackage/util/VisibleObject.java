@@ -10,7 +10,7 @@ import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.AddEntityPacket;
-import cn.nukkit.network.protocol.MoveEntityPacket;
+import cn.nukkit.network.protocol.MoveEntityAbsolutePacket;
 import cn.nukkit.network.protocol.RemoveEntityPacket;
 
 @Deprecated
@@ -41,7 +41,7 @@ public abstract class VisibleObject{
 	
 	public long eid;
 	protected AddEntityPacket addEntityPacket;
-	protected MoveEntityPacket moveEntityPacket;
+	protected MoveEntityAbsolutePacket moveEntityPacket;
 	protected RemoveEntityPacket removeEntityPacket;
 	
 	protected HashSet<String> viewers = new HashSet<String>();
